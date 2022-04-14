@@ -262,21 +262,8 @@ abstract class _RxImpl<T> extends RxNotifier<T> with RxObjectMixin<T> {
   }
 }
 
-class RxBool extends Rx<bool> {
-  RxBool(bool initial) : super(initial);
-  @override
-  String toString() {
-    return value ? "true" : "false";
-  }
-}
-
-class RxnBool extends Rx<bool?> {
-  RxnBool([bool? initial]) : super(initial);
-  @override
-  String toString() {
-    return "$value";
-  }
-}
+typedef RxBool = Rx<bool>;
+typedef RxnBool = Rx<bool>;
 
 extension RxBoolExt on Rx<bool> {
   bool get isTrue => value;
@@ -364,27 +351,8 @@ class Rxn<T> extends Rx<T?> {
   }
 }
 
-extension StringExtension on String {
-  /// Returns a `RxString` with [this] `String` as initial value.
-  RxString get obs => RxString(this);
-}
-
-extension IntExtension on int {
-  /// Returns a `RxInt` with [this] `int` as initial value.
-  RxInt get obs => RxInt(this);
-}
-
-extension DoubleExtension on double {
-  /// Returns a `RxDouble` with [this] `double` as initial value.
-  RxDouble get obs => RxDouble(this);
-}
-
-extension BoolExtension on bool {
-  /// Returns a `RxBool` with [this] `bool` as initial value.
-  RxBool get obs => RxBool(this);
-}
-
 extension RxT<T> on T {
   /// Returns a `Rx` instance with [this] `T` as initial value.
   Rx<T> get obs => Rx<T>(this);
+  Rx<T> get nobs => Rx<T>(this);
 }
