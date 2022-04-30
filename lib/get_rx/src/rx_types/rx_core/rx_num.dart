@@ -1033,7 +1033,11 @@ extension RxIntExt on Rx<int> {
   ///
   /// The result of negating an integer always has the opposite sign, except
   /// for zero, which is its own negation.
-  int operator -() => -value;
+
+  Rx<int> operator +(int other) => this..call(value + other);
+  Rx<int> operator -(int other) => this..call(value - other);
+  Rx<int> operator *(int other) => this..call(value * other);
+  Rx<int> operator %(int other) => this..call(value % other);
 
   /// Returns the absolute value of this integer.
   ///
@@ -1272,12 +1276,15 @@ extension RxnIntExt on Rx<int?> {
   ///
   /// The result of negating an integer always has the opposite sign, except
   /// for zero, which is its own negation.
-  int? operator -() {
-    if (value != null) {
-      return -value!;
-    }
-    return null;
-  }
+
+  Rx<int?> operator +(int other) => value == null ? this : this
+    ..call(value! + other);
+  Rx<int?> operator -(int other) => value == null ? this : this
+    ..call(value! - other);
+  Rx<int?> operator *(int other) => value == null ? this : this
+    ..call(value! * other);
+  Rx<int?> operator %(int other) => value == null ? this : this
+    ..call(value! % other);
 
   /// Returns the absolute value of this integer.
   ///
