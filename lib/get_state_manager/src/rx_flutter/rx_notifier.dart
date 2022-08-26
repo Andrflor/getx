@@ -40,7 +40,7 @@ mixin StateMixin<T> on ListNotifier {
     return _status ??= _status = GetStatus.loading();
   }
 
-  T get state => value;
+  T get state => value as T;
 
   set status(GetStatus<T> newStatus) {
     if (newStatus == status) return;
@@ -52,13 +52,13 @@ mixin StateMixin<T> on ListNotifier {
   }
 
   @protected
-  T get value {
+  T? get value {
     reportRead();
-    return _value as T;
+    return _value;
   }
 
   @protected
-  set value(T newValue) {
+  set value(T? newValue) {
     if (_value == newValue) return;
     _value = newValue;
     refresh();
@@ -71,7 +71,7 @@ mixin StateMixin<T> on ListNotifier {
     }
   }
 
-  void futurize(Future<T> Function()  body,
+  void futurize(Future<T> Function() body,
       {T? initialData, String? errorMessage, bool useEmpty = true}) {
     final compute = body;
     _value ??= initialData;
@@ -178,13 +178,13 @@ class Value<T> extends ListNotifier
   }
 
   @override
-  T get value {
+  T? get value {
     reportRead();
-    return _value as T;
+    return _value;
   }
 
   @override
-  set value(T newValue) {
+  set value(T? newValue) {
     if (_value == newValue) return;
     _value = newValue;
     refresh();
